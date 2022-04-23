@@ -1,0 +1,57 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{%load crispy_forms_tags %} 
+
+{% block title %}Leave - Delete{% endblock title %}
+{% block description %}This page is about deleting leave applied by users{% endblock description %}
+{% block canonical %}{{request.path}}{% endblock canonical %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="col">
+          <h1 class="font-weight-light">Confirm to Delete Leave</h1>
+      </div>
+    </div>
+    
+    
+    <hr>
+</div>
+<div class="container">
+    <div class="p-5 mb-4 bg-light ">
+    <div class="row justify-content-center">
+
+          
+        
+        <div class="col-8">
+
+            
+            <div>
+                <form action="" method="post">{% csrf_token %}
+                    <p>You are about to delete the following leave:</p>
+                    <dl class="row">
+                        <dt class="col-3">Employee id</dt>
+                        <dd class="col-9">#{{leave_detail.profile}}</dd>
+                        <dt class="col-3">Leave Date</dt>
+                        <dd class="col-9">{{leave_detail.leave_date}}</dd>                       
+                    </dl>
+                    <p>Are you sure you want to delete? </p>
+                    <input class="btn btn-danger" type="submit" value="Confirm"/>
+                    <a href="{% url 'leave-list'  %}" class="btn btn-outline-secondary">Nope</a>
+                </form>
+            </div>
+        
+        </div>
+    </div> 
+</div>
+</div>
+
+
+
+
+
+
+{% endblock content %}

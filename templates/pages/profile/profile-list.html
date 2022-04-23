@@ -1,0 +1,74 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{%load crispy_forms_tags %}
+{% block title %}Profile{% endblock title %}
+{% block description %}Here, a list of profile gets displayed{% endblock description %}
+{% block canonical %}{{request.path}}{% endblock canonical %}
+
+{% block content %}
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="col">
+            <a class="btn d-inline-block" href="{% url 'home'%}"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+              </svg></a>
+        </div>
+      <div class="col">
+          <h1 class="font-weight-light">Profile List</h1>
+      </div>
+      <div class="col text-right">
+          <a class="btn btn-primary" href="{% url 'profile-add'%}">Add New Employee</a>
+      </div>
+    </div>    
+    <hr>
+</div>
+<div class="container bg-light  rounded">
+    <div class="p-3">
+
+    
+    <form action="" method="GET">
+        <div class="row align-items-center justify-content-center">
+            
+            <div class="col-10 ">
+                <div class="row justify-content-between">
+                    {{profile_filter.form | crispy}}
+                </div>
+            </div>
+            <div class="col-2 text-center">
+            <input class="btn btn-dark" type="submit" value="Filter">
+            </div>
+        </div>
+        
+    </form>
+</div>
+</div>
+<div class="container pt-5">
+    <div class="row gx-3">
+{% for profile in profile_list %}
+<div class="col-4">
+    <a href="{% url 'profile-detail' profile.id %}" class="card mb-3  px-0 text-dark bg-light" >
+        <div class="row align-items-center p-2 justify-content-center gx-1 ">
+            <div class="col-5">
+                <img src="{{profile.photo}}" class="img-fluid rounded-circle" alt="...">
+            </div>
+            <div class="col-7">
+                <div class="card-body px-0">
+                    <h4 class="card-title text-capitalize mb-1 text-decoration-none">{{profile.name}}</h4>
+                    <p class="muted text-decoration-none">Employee id# {{profile.id}}</p>
+                </div>
+            </div>
+        </div>
+      </a>
+</div>
+    
+    {% empty %}
+      <li>No profile found.</li>
+{% endfor %}
+</div>
+</div>
+
+
+{% endblock content %}
+
